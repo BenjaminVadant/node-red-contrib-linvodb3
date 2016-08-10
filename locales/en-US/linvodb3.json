@@ -1,0 +1,27 @@
+{
+    "linvodb3": {
+        "label": {
+            "server" : "Server",
+            "path": "Path",
+            "collection": "Collection",
+            "operation": "Operation",
+            "onlystore": "Only store msg.payload object",
+            "createnew": "Create a new document if no match found",
+            "updateall": "Update all matching documents"
+        },
+        "operation": {
+            "save": "save",
+            "insert": "insert",
+            "update": "update",
+            "remove": "remove",
+            "find": "find",
+            "count": "count",
+            "aggregate": "aggregate"
+        },
+        "tip": "<b> Tip:</b> If no collection is set, ensure <code>msg.collection</code> will contain the collection name",
+        "errors": {
+            "nocollection": "No collection defined",
+            "missingconfig": "missing linvodb3 configuration"
+        }
+    }
+}
