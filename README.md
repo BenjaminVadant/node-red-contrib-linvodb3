@@ -36,10 +36,9 @@ query using the `msg.payload` as the query statement.
 
 *Aggregate* provides access to the aggregation pipeline using the `msg.payload` as the pipeline array.
 
-*Not yet tested*
-You can either set the collection method in the node config or on `msg.collection`.
+You can either set the collection method in the node config or on `msg.server` AND `msg.collection`.
+Attention, corresponding linvodb3 and linvodb3-collection have to be set before use.
 Setting it in the node will override `msg.collection`.
-*Not yet tested*
 
 See the <a href="https://github.com/Ivshti/linvodb3" target="new">*LinvoDb3 collection methods docs*</a> for examples.
 

@@ -14,6 +14,25 @@ module.exports = function(RED) {
 
     RED.nodes.registerType("linvodb3",LinvoNode);
 
+    function getCollection(serverName, collectionName) {
+        var result = [];
+        RED.nodes.eachNode(function(n){
+            if(n && n.type === 'linvodb3-collection' && n.name === collectionName && RED.nodes.getNode(n.server).name === serverName) {
+                result.push(n.id);
+            }
+        });
+
+        if(result.length > 1) {
+            this.error(RED._("linvodb3.errors.toomanyresults"));
+        }
+        else if(result.length === 0){
+            return -1;
+        }
+        else {
+            return result[0];
+        }
+    }
+
     function LinvoCollectionNode(n) {
         RED.nodes.createNode(this,n);
         this.name = n.name;
@@ -51,7 +70,10 @@ module.exports = function(RED) {
             node.on("input",function(msg) {
                 var coll;
                 if (!node.collection) {
-                    if (msg.collection) {
+                    if (msg.collection && msg.server) {
+                        msg.collection = getCollection(msg.server, msg.collection);
+                    }
+                    if (msg.collection !== -1) {
                         coll = RED.nodes.getNode(msg.collection).client;
                     } else {
                         node.error(RED._("linvodb3.errors.nocollection"),msg);
@@ -143,7 +165,10 @@ module.exports = function(RED) {
             node.on("input", function(msg) {
                 var coll;
                 if (!node.collection) {
-                    if (msg.collection) {
+                    if (msg.collection && msg.server) {
+                        msg.collection = getCollection(msg.server, msg.collection);
+                    }
+                    if (msg.collection !== -1) {
                         coll = RED.nodes.getNode(msg.collection).client;
                     } else {
                         node.error(RED._("linvodb3.errors.nocollection"),msg);
@@ -153,6 +178,7 @@ module.exports = function(RED) {
                 else {
                     coll = RED.nodes.getNode(node.collection).client;
                 }
+
                 var selector;
                 if (node.operation === "find") {
                     msg.projection = msg.projection || {};

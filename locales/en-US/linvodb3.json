@@ -21,7 +21,8 @@
         "tip": "<b> Tip:</b> If no collection is set, ensure <code>msg.collection</code> will contain the collection name",
         "errors": {
             "nocollection": "No collection defined",
-            "missingconfig": "missing linvodb3 configuration"
+            "missingconfig": "missing linvodb3 configuration",
+            "toomanyresults": "Too many results"
         }
     }
 }

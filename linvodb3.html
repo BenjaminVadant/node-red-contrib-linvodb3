@@ -43,7 +43,7 @@
             name : {value: "test", required: true}
         },
         label: function() {
-            return this.server.name + '-' +this.name;
+            return RED.nodes.node(this.server).name + '-' +this.name;
         }
     });
 </script>
@@ -95,7 +95,7 @@
     <p>Update can add a object if it does not exist or update multiple objects.</p>
     <p>Remove will remove objects that match the query passed in on <code>msg.payload</code>. A blank query will delete
     <i>all of the objects</i> in the collection.</p>
-    <p>You can either set the collection method in the node config or on <code>msg.collection</code>. Setting it in the
+    <p>You can either set the collection method in the node config or on <code>msg.server</code> AND <code>msg.collection</code>. Setting it in the
     node will override <code>msg.collection</code>.</p>
     <p>By default LinvoDB3 creates an <i>_id</i> property as the primary key - so repeated injections of the
     same <code>msg</code> will result in many database entries.</p>
@@ -136,7 +136,7 @@
         color: "rgb(218, 196, 180)",
         defaults: {
             name: {value: ""},
-            collection: {type: "linvodb3-collection"},
+            collection: {type: "linvodb3-collection",required:false},
             payonly: {value: false},
             upsert: {value: false},
             multi: {value: false},
@@ -186,7 +186,7 @@
     <p>Count returns a count of the number of documents in a collection or matching a query using the
     <code>msg.payload</code> as the query statement.</p>
     <p>Aggregate provides access to the aggregation pipeline using the <code>msg.payload</code> as the pipeline array.</p>
-    <p>You can either set the collection method in the node config or on <code>msg.collection</code>. Setting it in
+    <p>You can either set the collection method in the node config or on <code>msg.server</code> AND <code>msg.collection</code>. Setting it in
     the node will override <code>msg.collection</code>.</p>
     <p>See the <a href="https://github.com/Ivshti/linvodb3/blob/master/README.md" target="new"><i>LinvoDb3
     collection methods docs</i></a> for examples.</p>
@@ -200,7 +200,7 @@
         color: "rgb(218, 196, 180)",
         defaults: {
             name: {value: ""},
-            collection: {type: "linvodb3-collection"},
+            collection: {type: "linvodb3-collection",required:false},
             operation: {value: "find"}
         },
         inputs: 1,
